@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog header="#{msgs.user_form_header}" showEffect="fade" modal="true"
+		widgetVar="manageUserDialog" responsive="true">
+		<p:outputPanel id="manage-user-content" class="ui-fluid">
+			<p:outputPanel rendered="#{not empty manageUserBean.selectedUser}">
+				<p:panelGrid layout="grid" columns="2">
+					<h:panelGroup>
+						<div class="p-field">
+							<p:outputLabel for="@next">#{msgs.user_fullname}</p:outputLabel>
+							<p:inputText id="name" required="true" 
+								value="#{manageUserBean.selectedUser.fullName}" label="#{msgs.user_fullname}" />
+							<p:message for="@previous" ></p:message>
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="@next">#{msgs.user_name}</p:outputLabel>
+							<p:inputText id="username" required="true"
+								value="#{manageUserBean.selectedUser.username}" label="#{msgs.user_name}" />
+							<p:message for="@previous"></p:message>
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="@next">#{msgs.user_id}</p:outputLabel>
+							<p:inputText id="ci" required="true"
+								value="#{manageUserBean.selectedUser.identification}"
+								maxlength="11" label="#{msgs.user_id}">
+								<p:keyFilter mask="num" />
+							</p:inputText>
+							<p:message for="@previous"></p:message>
+						</div>						
+					</h:panelGroup>
+					<h:panelGroup>						
+						<div class="p-field">
+							<p:outputLabel for="gender">#{msgs.user_gender}</p:outputLabel>
+							<p:selectOneMenu id="gender" style="width:100%" required="true"
+								value="#{manageUserBean.selectedUser.gender}" label="#{msgs.user_gender}">
+								<f:selectItem itemLabel="#{msgs.btn_select}" itemValue="" />
+								<f:selectItem itemLabel="#{msgs.user_gender_f}" itemValue="Femenino" />
+								<f:selectItem itemLabel="#{msgs.user_gender_m}" itemValue="Masculino" />
+							</p:selectOneMenu>
+							<p:message for="gender" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="profession">#{msgs.user_profession}</p:outputLabel>
+							<p:selectOneMenu id="profession" style="width:100%" required="true"
+								value="#{manageUserBean.professionId}" label="#{msgs.user_profession}">
+								<f:selectItem itemLabel="#{msgs.btn_select}" itemValue="" />
+								<f:selectItems value="#{manageUserBean.professions}" var="profession"
+								itemLabel="#{profession.description}" itemValue="#{profession.id}" />
+							</p:selectOneMenu>
+							<p:message for="profession" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="@next">#{msgs.user_email}</p:outputLabel>
+							<p:inputText id="email" required="true"
+								value="#{manageUserBean.selectedUser.email}" label="#{msgs.user_email}"
+								validatorMessage="#{msgs.message_wrong_email}">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+							<p:message for="@previous"></p:message>
+						</div>
+					</h:panelGroup>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<f:facet name="footer">
+			<p:commandButton value="#{msgs.btn_save}" icon="pi pi-check"
+				actionListener="#{manageUserBean.saveUser}"
+				update="manage-user-content" process="manage-user-content @this" />
+			<p:commandButton value="#{msgs.btn_cancel}" icon="pi pi-times"
+				onclick="PF('manageUserDialog').hide()" class="ui-button-secondary" />
+		</f:facet>
+	</p:dialog>
+</ui:composition>

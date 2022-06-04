@@ -1,0 +1,22 @@
+body {
+	background-image:
+		url("#{request.contextPath}/resources/images/login.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.table-picture {
+	width: 100%;
+	max-width: 200px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);	
+}
+.col-center {
+	text-align: center !important;
+}
+
+@media(max-width:640px) and (min-width:348px){
+	.col-center {
+		text-align: left !important;
+	}
+}

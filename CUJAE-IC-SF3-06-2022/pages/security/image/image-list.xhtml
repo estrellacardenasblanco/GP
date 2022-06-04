@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/pages/template/layout.xhtml">
+	<ui:define name="head">
+		<title>#{msgs.picture_title}</title>
+		<style>
+    		body {
+				height: 90%;
+			}	
+    	</style>
+	</ui:define>
+	<ui:param name="showMenu" value="true" />
+	<ui:define name="layout">
+		<h:form id="form">
+			<div class="card crud-demo">
+				<p:toolbar>
+					<p:toolbarGroup>
+						<p:commandButton value="#{msgs.btn_new}" icon="pi pi-plus"
+							actionListener="#{managePictureBean.openNew}"
+							update=":form:manage-picture-content"
+							oncomplete="PF('managePictureDialog').show()"
+							styleClass="ui-button-success" style="margin-right: .5rem">
+							<p:resetInput target=":form:manage-picture-content" />
+						</p:commandButton>
+					</p:toolbarGroup>
+					<p:toolbarGroup align="right">
+					    <p:commandButton value="#{msgs.btn_export}" icon="pi pi-upload"
+							styleClass="ui-button-help" ajax="false">
+							<p:dataExporter type="pdf" target="dt-pictures" fileName="pictures" />
+						</p:commandButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+				
+				
+				<p:dataTable id="dt-pictures" widgetVar="dtPictures" var="picture"
+					value="#{managePictureBean.pictures}" reflow="true" paginator="true"
+					rows="10" paginatorPosition="bottom">
+					<f:facet name="header">
+						<div class="products-table-header">
+							<span style="font-weight: bold">#{msgs.picture_filter}</span> <span
+								class="filter-container ui-input-icon-left"> <i
+								class="pi pi-search"></i> <p:inputText id="globalFilter"
+									onkeyup="PF('dtPictures').filter()" placeholder="#{msgs.btn_search}" />
+							</span>
+						</div>
+					</f:facet>
+					
+					<p:column headerText="#{msgs.picture_thumbnail}" styleClass="col-center">
+						<p:graphicImage url="#{server}/#{picture.url}" styleClass="table-picture"/>
+					</p:column>
+					<p:column headerText="#{msgs.picture_name}" sortBy="#{picture.name}" filterBy="#{picture.name}">
+						<h:outputText value="#{picture.name}" />
+					</p:column>
+					<p:column headerText="#{msgs.picture_id}" sortBy="#{picture.id}"
+						filterBy="#{picture.id}">
+						<h:outputText value="#{picture.id}" />
+					</p:column>
+					<p:column headerText="#{msgs.picture_date}" sortBy="#{picture.date}"
+						filterBy="#{picture.date}">
+						<h:outputText value="#{picture.date}" />
+					</p:column>
+					<p:column headerText="#{msgs.picture_quality}" sortBy="#{picture.quality}"
+						filterBy="#{picture.quality}">
+						<h:outputText value="#{picture.quality}" />
+					</p:column>
+					
+					<p:column exportable="false">
+						<p:commandButton icon="pi pi-pencil" action="#{managePictureBean.openForEdit}"
+							update=":form:manage-picture-content"
+							oncomplete="PF('managePictureDialog').show()"
+							styleClass="edit-button rounded-button ui-button-success"
+							process="@this">
+							<f:setPropertyActionListener value="#{picture}"
+								target="#{managePictureBean.selectedPicture}" />
+							<p:resetInput target=":form:manage-picture-content" />
+						</p:commandButton>
+						<p:commandButton class="ui-button-warning rounded-button"
+							icon="pi pi-trash" process="@this" 
+							action="#{managePictureBean.deletePicture}" >
+							<f:setPropertyActionListener value="#{picture}"
+								target="#{managePictureBean.selectedPicture}" />
+							<p:confirm header="#{msgs.message_confirm}" message="#{msgs.picture_delete_confirm}" icon="pi pi-exclamation-triangle"/>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<ui:include src="image-form.xhtml"></ui:include>
+
+				<p:confirmDialog global="true" showEffect="fade" width="300">
+					<p:commandButton value="#{msgs.btn_yes}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="#{msgs.btn_no}" type="button"
+						styleClass="ui-confirmdialog-no ui-button-secondary"
+						icon="pi pi-times" />
+				</p:confirmDialog>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

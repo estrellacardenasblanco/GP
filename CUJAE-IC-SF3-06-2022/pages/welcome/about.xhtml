@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">	
+    <ui:composition template="/pages/template/layout.xhtml">
+    	<ui:param name="showMenu" value="true" />
+    	<ui:define name="head">
+    		<title>#{msgs.about_title}</title>
+    	</ui:define>
+    	<ui:define name="layout">
+    		<p:card style="max-width:1000px; text-align: justify;">
+    			<f:facet name="title">#{msgs.about_title}</f:facet>
+    			#{msgs.about_p1}
+		    	<br/><br/>
+		    	#{msgs.about_p2}	
+		    	<br/><br/>	  
+		    	#{msgs.about_p3}  	
+			</p:card>
+    	</ui:define>
+    </ui:composition>
+</html>
