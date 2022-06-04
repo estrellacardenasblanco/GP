@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog header="#{msgs.picture_form_header}" showEffect="fade" modal="true"
+		widgetVar="managePictureDialog" responsive="true" style="max-width:394px">
+		<p:outputPanel id="manage-picture-content" class="ui-fluid">
+			<p:outputPanel rendered="#{not empty managePictureBean.selectedPicture}">
+				<p:panelGrid layout="grid" columns="1">
+					<h:panelGroup>
+						<div class="p-field">
+							<p:outputLabel for="@next">#{msgs.picture_name}</p:outputLabel>
+							<p:inputText id="name" required="true" 
+								value="#{managePictureBean.selectedPicture.name}" label="#{msgs.picture_name}" />
+							<p:message for="@previous" ></p:message>
+						</div>
+						<div class="p-field">
+							<p:fileUpload mode="advanced"
+							  rendered="#{managePictureBean.selectedPicture.id==0}"
+		                      multiple="false"
+		                      sizeLimit="307200" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+		                      invalidSizeMessage="#{msgs.message_picture_size}"
+		                      invalidFileMessage="#{msgs.message_picture_ext}"
+		                      update="imagePanel"
+		                      listener="#{managePictureBean.handleFileUpload}"
+		                      required="true"
+		                      auto="true"
+		                      />
+						</div>	      	
+						
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:outputPanel id="imagePanel" style="text-align:center">
+							<p:graphicImage
+								rendered="#{not empty managePictureBean.imageFile}"
+								value="#{managePictureBean.image}" styleClass="table-picture" cache="false"/>
+
+							<p:graphicImage rendered="#{empty managePictureBean.imageFile and managePictureBean.selectedPicture.id==0}"
+								url="/resources/images/no_image.png" styleClass="table-picture" />
+								
+							<p:graphicImage rendered="#{managePictureBean.selectedPicture.id!=0}"
+								url="#{server}/#{managePictureBean.selectedPicture.url}" styleClass="table-picture" />
+						</p:outputPanel>
+					</h:panelGroup>
+					
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<f:facet name="footer">
+			<p:commandButton value="#{msgs.btn_save}" icon="pi pi-check"
+				actionListener="#{managePictureBean.savePicture}"
+				update="manage-picture-content" process="manage-picture-content @this" />
+			<p:commandButton value="#{msgs.btn_cancel}" icon="pi pi-times"
+				onclick="PF('managePictureDialog').hide()" class="ui-button-secondary" />
+		</f:facet>
+	</p:dialog>
+</ui:composition>

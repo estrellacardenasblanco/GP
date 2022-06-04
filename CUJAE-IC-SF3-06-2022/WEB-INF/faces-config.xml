@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+	version="2.3">
+
+	<navigation-rule>
+		<from-view-id>/pages/security/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/pages/welcome/welcome.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>doubt</from-outcome>
+			<to-view-id>/pages/security/security-question.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>create</from-outcome>
+			<to-view-id>/pages/security/password/password.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>/pages/security/password/password.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/pages/welcome/welcome.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>/pages/security/security-question.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/pages/welcome/welcome.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/*</from-view-id>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/pages/security/login.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>reports1</from-outcome>
+			<to-view-id>/pages/reports/report1-list.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>reports2</from-outcome>
+			<to-view-id>/pages/reports/report2-list.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>reports3</from-outcome>
+			<to-view-id>/pages/reports/report3-list.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>reports4</from-outcome>
+			<to-view-id>/pages/reports/report4-list.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>reports5</from-outcome>
+			<to-view-id>/pages/reports/report5-list.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-outcome>security-users</from-outcome>
+			<to-view-id>/pages/security/users/user-list.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>security-image</from-outcome>
+			<to-view-id>/pages/security/image/image-list.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+	
+		<navigation-case>
+			<from-outcome>about</from-outcome>
+			<to-view-id>/pages/welcome/about.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>welcome</from-outcome>
+			<to-view-id>/pages/welcome/welcome.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>password</from-outcome>
+			<to-view-id>/pages/security/password/password.xhtml
+			</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	
+
+
+	<application>
+	    <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+        <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+        <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+        <locale-config>
+            <default-locale>es</default-locale>
+        </locale-config>
+        <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<resource-bundle>
+			<base-name>i18n.language</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+	
+</faces-config>

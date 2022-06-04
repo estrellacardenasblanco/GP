@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<ui:param name="admin" value="#{userBean.isAdmin()}"></ui:param>
+		
+		<p:menubar>
+			<p:menuitem value="#{msgs.menu_home}" icon="pi pi-fw pi-home" action="welcome" />
+		
+			<p:submenu label="#{msgs.menu_data}" icon="pi pi-fw pi-table" rendered="#{admin}">
+				<p:menuitem value="#{msgs.menu_data_users}" icon="pi pi-fw pi-users" action="security-users" />
+				<p:menuitem value="#{msgs.menu_data_images}" icon="pi pi-fw pi-images" action="security-image"  />
+			</p:submenu>
+
+			<p:submenu label="#{msgs.menu_reports}" icon="pi pi-fw pi-file">
+				<p:menuitem value="#{msgs.report1_title}" icon="pi pi-fw pi-file-pdf" rendered="#{admin}" action="reports1"/>
+				<p:menuitem value="#{msgs.report2_title}" icon="pi pi-fw pi-file-pdf" rendered="#{admin}" action="reports2"/>
+				<p:menuitem value="#{msgs.report3_title}" icon="pi pi-fw pi-file-pdf" rendered="#{admin}" action="reports3"/>
+				<p:menuitem value="#{msgs.report4_title}" icon="pi pi-fw pi-file-pdf" rendered="#{!admin}" action="reports4"/>
+				<p:menuitem value="#{msgs.report5_title}" icon="pi pi-fw pi-file-pdf" rendered="#{!admin}" action="reports5"/>
+			</p:submenu>
+			<p:menuitem value="#{msgs.menu_about}" icon="pi pi-fw pi-info-circle" action="about"  />			
+
+			<f:facet name="options">
+				<p:commandButton value="#{msgs.menu_logout}" icon="pi pi-fw pi-sign-out"
+					styleClass="ui-button-info" action="logout" ajax="false" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+</ui:composition>

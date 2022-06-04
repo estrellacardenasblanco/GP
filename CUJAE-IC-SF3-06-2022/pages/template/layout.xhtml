@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    	<h:outputStylesheet name="primeflex.min.css" library="css"></h:outputStylesheet>
+    	<h:outputStylesheet name="style.css" library="css"></h:outputStylesheet>
+    	<ui:insert name="head" />
+    	<ui:param name="request" value="#{request}"></ui:param>
+    	<ui:param name="server" value="#{request.scheme}://#{request.serverName}:#{request.serverPort}"></ui:param>
+    </h:head>
+
+    <h:body>
+	    <!-- Menu -->
+	    <ui:fragment rendered="#{showMenu}">
+	    	<ui:include src="menu.xhtml"></ui:include>
+	    </ui:fragment>
+	    
+	    <!-- Zona editable -->
+	    <ui:insert name="layout">
+	    	
+	    </ui:insert>
+    </h:body>
+</html>

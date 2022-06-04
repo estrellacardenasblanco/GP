@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">	
+    <ui:composition template="/pages/template/layout.xhtml">
+    	<ui:param name="showMenu" value="true" />
+    	<ui:define name="head">
+    		<title>#{msgs.welcome_title}</title>
+    	</ui:define>
+    	<ui:define name="layout">
+    		<p:card>
+    			<f:facet name="title">#{msgs.welcome_card_title}</f:facet>
+		    	#{msgs.welcome_card_text1}#{userBean.username}#{msgs.welcome_card_text2}
+		    	<p:outputLabel rendered="#{userBean.isAdmin()}">#{msgs.welcome_card_text3}</p:outputLabel>
+			</p:card>
+    	</ui:define>
+    </ui:composition>
+</html>

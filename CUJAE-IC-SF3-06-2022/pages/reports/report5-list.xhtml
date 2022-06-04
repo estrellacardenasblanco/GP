@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/pages/template/layout.xhtml">
+	<ui:define name="head">
+		<title>#{msgs.report5_title}</title>
+	</ui:define>
+	<ui:param name="showMenu" value="true" />
+	<ui:define name="layout">
+		<h:form id="form">
+			<div class="card crud-demo">			
+				<p:card>
+					<f:facet name="title">#{msgs.report5_title}</f:facet>
+					<p:outputLabel value="#{msgs.report5_description}"/>
+				</p:card>
+				<p:toolbar>
+					<p:toolbarGroup align="right">
+					    <!-- Este es un button que tiene como objetivo exportar el contenido de la tabla que apunta a propiedad target
+					         del componente dataExporter. En este caso dt-users es el identificador del componente datatable -->
+						<p:commandButton value="#{msgs.btn_export}" icon="pi pi-upload"
+							styleClass="ui-button-help" ajax="false">
+							<p:dataExporter type="pdf" target="dt-report5" fileName="report5" />
+						</p:commandButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+                
+                <!-- Componente usado para mostrar tablas con datos y ejecutar operaciones
+                	* La propiedad value: apunta a una lista de objetos de tipo UserDto que está en el bean de jsf
+                	* La propiedad var: es una instancia de esta lista para poder extaer los objetos, es como iterador
+                	  que luego permite poder decir user.<propiedad del objeto>.
+                	* La propiedad paginator: define si se quiere paginar o no y es posible definir la position del mismo usando
+                	  la propiedad pagePosition.
+                    * La propiedad rows: define la cantidad de filas
+                	* El facet header define un encabezado y agrega un button para filtrar. Por defecto esto lo hace el solo, si quieren algo
+                	  con mayor detalle ver el showcase.  
+                 -->
+				<p:dataTable id="dt-report5" widgetVar="dtReport5" var="report5"
+					value="#{manageReportBean.reports5}" reflow="true" paginator="true"
+					rows="10" paginatorPosition="bottom">
+					
+					<p:column headerText="#{msgs.report_picture}" >
+						<h:outputText value="#{report5.imageName}" />
+					</p:column>
+					<p:column headerText="#{msgs.report_amount}" >
+						<h:outputText value="#{report5.i}" />
+					</p:column>
+
+				</p:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

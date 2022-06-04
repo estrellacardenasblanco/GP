@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/pages/template/layout.xhtml">
+	<ui:define name="head">
+		<title>#{msgs.login_title}</title>
+	</ui:define>
+	<ui:param name="showMenu" value="false" />
+	<ui:define name="layout">
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{userBean.loadImages}" />
+		</f:metadata>		
+	    <h:form>
+	        <p:growl id="messages" showDetail="true" showSummary="false">
+	        	<p:autoUpdate/>
+	        </p:growl>
+	    	<p:spacer height="50"></p:spacer>
+	    	<div class="p-grid p-ai-center vertical-container">	    		
+			    <div class="p-col">
+			        
+			    </div>
+			    <div class="p-col">
+			       <p:card style="width: auto">
+					    <f:facet name="title">
+					        #{msgs.login_title} 
+					    </f:facet>
+					    
+						<p:panelGrid columns="1" layout="grid">
+					      <h:panelGroup>
+					      	<p:outputLabel for="@next" value="#{msgs.label_username}"/>
+					        <p:inputText value="#{userBean.username}" style="width:100%" required="true"/>
+					        <p:message for="@previous"  />
+					      </h:panelGroup>
+					    </p:panelGrid>
+					
+					    <f:facet name="footer">
+					        <p:commandButton ajax="false" icon="pi pi-sign-in" value="#{msgs.btn_login}" action="#{userBean.checkUsername}"/>
+					    </f:facet>
+					</p:card>
+			    </div>
+			    <div class="p-col">
+			        <div class="box"></div>
+			    </div>
+			</div>
+        		
+		</h:form>
+		
+		<h:form style="text-align: center;">
+			<p:dialog  header="#{msgs.message_select_points}"
+				responsive="true" widgetVar="imagePasswordDialog" modal="true" draggable="false">
+				<p:ajax event="close" listener="#{userBean.init}" ></p:ajax>
+				<h:graphicImage id="form-image" url="#{server}/#{userBean.image}"
+					height="500">
+					<f:ajax event="click" execute="x y"
+						listener="#{userBean.listener}"></f:ajax>
+				</h:graphicImage>
+				<h:inputHidden id="x" value="#{userBean.x}" />
+				<h:inputHidden id="y" value="#{userBean.y}" />
+				<f:facet name="footer">
+					<p:commandButton icon="pi pi-sign-in" value="#{msgs.btn_login}" action="#{userBean.login}"
+					 widgetVar="loginBtn"/>
+				</f:facet>
+			</p:dialog>
+		</h:form>
+		<h:outputScript>
+			jQuery("img[id$=':form-image']").on("mousedown", function(event){
+				var $form = jQuery(this).closest("form");
+				$form.find("input[id$=':x']").val(event.offsetX);
+				$form.find("input[id$=':y']").val(event.offsetY);
+			});
+		</h:outputScript>
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<p:dialog header="#{msgs.squestion_create_title}" footer="..."
+			width="400" widgetVar="securityQuestionDialog" draggable="false"
+			resizable="false" responsive="true" modal="true">
+
+			<p:panelGrid columns="1" layout="grid">
+				<h:panelGroup>
+					<p:outputLabel value="#{msgs.squestion_choose}" />
+					<p:selectOneMenu value="#{passwordBean.question}"
+						style="width:100%" required="true">
+						<f:selectItems value="#{securityQuestionBean.questionList}"
+							var="question" itemLabel="#{question}" itemValue="#{question}" />
+					</p:selectOneMenu>
+					<p:message for="@previous" />
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<p:inputText style="width:100%"
+						value="#{passwordBean.answer}" required="true"
+						placeholder="#{msgs.squestion_answer_placeholder}"
+						label="#{msgs.squestion_answer}" />
+					<p:message for="@previous" />
+				</h:panelGroup>
+			</p:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton ajax="false" icon="pi pi-sign-in"
+					value="#{msgs.btn_send}" action="#{passwordBean.submit}" />
+			</f:facet>
+		</p:dialog>
+	</h:form>
+</ui:composition>
